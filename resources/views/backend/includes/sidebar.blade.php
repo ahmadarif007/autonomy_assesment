@@ -1,3 +1,15 @@
+
+<!-- SidebarSearch Form -->
+<div class="form-inline mt-2">
+  <div class="input-group" data-widget="sidebar-search">
+    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+    <div class="input-group-append">
+      <button class="btn btn-sidebar">
+        <i class="fas fa-search fa-fw"></i>
+      </button>
+    </div>
+  </div>
+</div>
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
@@ -11,72 +23,34 @@
           </p>
         </a>
         <ul class="nav nav-treeview">
-        <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-edit"></i>
-          <p>
-            Category
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="pages/layout/top-nav.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Add Category</p>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+               Category
+                <i class="fas fa-angle-left right"></i>
+              </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/layout/top-nav.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Manage Category</p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-book"></i>
-          <p>
-            Sub Category
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="pages/layout/top-nav.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Add Sub Category</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/layout/top-nav.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Manage Sub Category</p>
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-book"></i>
-          <p>
-            Child Category
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="pages/layout/top-nav.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Add Child Category</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/layout/top-nav.html" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Manage Child Category</p>
-            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('category.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sub Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Child Category</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </li>
