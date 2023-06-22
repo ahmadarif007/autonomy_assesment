@@ -55,7 +55,7 @@ class CategoryController extends Controller
     {
     	// $data=DB::table('categories')->where('id',$id)->first();
     	$data=Category::findorfail($id);
-        return view('admin.category.category.edit',compact('data'));
+        return view('backend.category.category.edit',compact('data'));
     	//return response()->json($data);
     }
 
@@ -81,8 +81,8 @@ class CategoryController extends Controller
                 }
               $photo=$request->icon;
               $photoname=$slug.'.'.$photo->getClientOriginalExtension();
-              Image::make($photo)->resize(32,32)->save('public/files/category/'.$photoname); 
-              $data['icon']='public/files/category/'.$photoname; 
+              Image::make($photo)->resize(32,32)->save('files/category/'.$photoname); 
+              $data['icon']='files/category/'.$photoname; 
               DB::table('categories')->where('id',$request->id)->update($data); 
               $notification=array('messege' => 'Category Update!', 'alert-type' => 'success');
               return redirect()->back()->with($notification);

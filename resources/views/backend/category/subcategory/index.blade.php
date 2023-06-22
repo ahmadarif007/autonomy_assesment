@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('backend.adminMaster')
 @section('title')
 all-subcategory
 @endsection
 
-@section('admin_content')
+@section('dashboardContent')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">

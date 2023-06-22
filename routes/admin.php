@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SubcategoryController;
 
 
 	//category routes
@@ -14,4 +15,11 @@ use App\Http\Controllers\Backend\CategoryController;
 	});
 
 	
-	
+	//subcategory routes
+	Route::group(['prefix'=>'subcategory'], function(){
+		Route::get('/', [SubcategoryController::class, 'index'])->name('subcategory.index');
+		Route::post('/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
+		Route::get('/delete/{id}', [SubcategoryController::class, 'destroy'])->name('subcategory.delete');
+		Route::get('/edit/{id}', [SubcategoryController::class, 'edit']);
+		Route::post('/update', [SubcategoryController::class, 'update'])->name('subcategory.update');
+	});
