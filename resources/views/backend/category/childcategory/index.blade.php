@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('backend.adminMaster')
 @section('title')
 all-child-category
 @endsection
 
-@section('admin_content')
+@section('dashboardContent')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
@@ -42,8 +42,18 @@ all-child-category
                   </tr>
                   </thead>
                   <tbody>
-
-                
+                    @foreach($category as $key=>$row) 	
+                      <tr>
+                        <td>{{ $key+1 }}</td>
+                        <td>{{ $row->childcategory_name }}</td>
+                        <td>{{ $row->category_name }}</td>
+                        <td>{{ $row->subcategory_name }}</td>
+                        <td>
+                          <a href="#" class="btn btn-info btn-sm edit" data-id="{{ $row->id }}" data-toggle="modal" data-target="#editModal" ><i class="fas fa-edit"></i></a>
+                          <a href="{{ route('subcategory.delete',$row->id) }}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash"></i></a>
+                        </td>
+                      </tr>
+                    @endforeach	
                   </tbody>
                 </table>
               </div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubcategoryController;
+use App\Http\Controllers\Backend\ChildcategoryController;
 
 
 	//category routes
@@ -14,7 +15,6 @@ use App\Http\Controllers\Backend\SubcategoryController;
 		Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
 	});
 
-	
 	//subcategory routes
 	Route::group(['prefix'=>'subcategory'], function(){
 		Route::get('/', [SubcategoryController::class, 'index'])->name('subcategory.index');
@@ -22,4 +22,13 @@ use App\Http\Controllers\Backend\SubcategoryController;
 		Route::get('/delete/{id}', [SubcategoryController::class, 'destroy'])->name('subcategory.delete');
 		Route::get('/edit/{id}', [SubcategoryController::class, 'edit']);
 		Route::post('/update', [SubcategoryController::class, 'update'])->name('subcategory.update');
+	});
+
+	//childcategory routes
+	Route::group(['prefix'=>'childcategory'], function(){
+		Route::get('/', [ChildcategoryController::class, 'index'])->name('childcategory.index');
+		Route::post('/store', [ChildcategoryController::class, 'store'])->name('childcategory.store');
+		Route::get('/delete/{id}', [ChildcategoryController::class, 'destroy'])->name('childcategory.delete');
+		Route::get('/edit/{id}', [ChildcategoryController::class, 'edit']);
+		Route::post('/update', [ChildcategoryController::class, 'update'])->name('childcategory.update');
 	});
