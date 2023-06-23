@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubcategoryController;
 use App\Http\Controllers\Backend\ChildcategoryController;
+use App\Http\Controllers\Backend\ProductController;
 
 
 //category routes
@@ -31,4 +32,16 @@ Route::group(['prefix'=>'childcategory'], function(){
 	Route::get('/delete/{id}', [ChildcategoryController::class, 'destroy'])->name('childcategory.delete');
 	Route::get('/edit/{id}', [ChildcategoryController::class, 'edit']);
 	Route::post('/update', [ChildcategoryController::class, 'update'])->name('childcategory.update');
+});
+
+//product routes
+Route::group(['prefix'=>'product'], function(){
+	Route::get('/', [ProductController::class, 'index'])->name('product.index');
+	Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+	Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+	Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+	Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+	Route::post('/update', [ProductController::class, 'update'])->name('product.update');
+	Route::get('/active-status/{id}','ProductController@activestatus');
+	Route::get('/not-status/{id}','ProductController@notstatus');
 });
