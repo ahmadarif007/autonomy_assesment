@@ -26,6 +26,11 @@ product-details
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->
 
+    @php
+        $color=explode(',',$product->color);
+        $sizes=explode(',',$product->size);
+    @endphp
+
     <div class="page-content">
         <div class="container">
             <div class="product-details-top">
@@ -34,7 +39,7 @@ product-details
                         <div class="product-gallery product-gallery-vertical">
                             <div class="row">
                                 <figure class="product-main-image">
-                                    <img id="product-zoom" src="assets/images/products/single/1.jpg" data-zoom-image="assets/images/products/single/1-big.jpg" alt="product image">
+                                    <img id="product-zoom" src="{{ asset('files/'.$product->thumbnail) }}" data-zoom-image="{{ asset('files/'.$product->thumbnail) }}" alt="product image">
 
                                     <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                         <i class="icon-arrows"></i>
@@ -42,20 +47,20 @@ product-details
                                 </figure><!-- End .product-main-image -->
 
                                 <div id="product-zoom-gallery" class="product-image-gallery">
-                                    <a class="product-gallery-item active" href="#" data-image="assets/images/products/single/1.jpg" data-zoom-image="assets/images/products/single/1-big.jpg">
-                                        <img src="assets/images/products/single/1-small.jpg" alt="product side">
+                                    <a class="product-gallery-item active" href="#" data-image="{{asset('assets')}}/images/products/single/1.jpg" data-zoom-image="{{asset('assets')}}/images/products/single/1-big.jpg">
+                                        <img src="{{asset('assets')}}/images/products/single/1-small.jpg" alt="product side">
                                     </a>
 
-                                    <a class="product-gallery-item" href="#" data-image="assets/images/products/single/2.jpg" data-zoom-image="assets/images/products/single/2-big.jpg">
-                                        <img src="assets/images/products/single/2-small.jpg" alt="product cross">
+                                    <a class="product-gallery-item" href="#" data-image="{{asset('assets')}}/images/products/single/2.jpg" data-zoom-image="{{asset('assets')}}/images/products/single/2-big.jpg">
+                                        <img src="{{asset('assets')}}/images/products/single/2-small.jpg" alt="product cross">
                                     </a>
 
-                                    <a class="product-gallery-item" href="#" data-image="assets/images/products/single/3.jpg" data-zoom-image="assets/images/products/single/3-big.jpg">
-                                        <img src="assets/images/products/single/3-small.jpg" alt="product with model">
+                                    <a class="product-gallery-item" href="#" data-image="{{asset('assets')}}/images/products/single/3.jpg" data-zoom-image="{{asset('assets')}}/images/products/single/3-big.jpg">
+                                        <img src="{{asset('assets')}}/images/products/single/3-small.jpg" alt="product with model">
                                     </a>
 
-                                    <a class="product-gallery-item" href="#" data-image="assets/images/products/single/4.jpg" data-zoom-image="assets/images/products/single/4-big.jpg">
-                                        <img src="assets/images/products/single/4-small.jpg" alt="product back">
+                                    <a class="product-gallery-item" href="#" data-image="{{asset('assets')}}/images/products/single/4.jpg" data-zoom-image="{{asset('assets')}}/images/products/single/4-big.jpg">
+                                        <img src="{{asset('assets')}}/images/products/single/4-small.jpg" alt="product back">
                                     </a>
                                 </div><!-- End .product-image-gallery -->
                             </div><!-- End .row -->
@@ -64,7 +69,7 @@ product-details
 
                     <div class="col-md-6">
                         <div class="product-details">
-                            <h1 class="product-title">Dark yellow lace cut out swing dress</h1><!-- End .product-title -->
+                            <h1 class="product-title">{{$product->name}}</h1><!-- End .product-title -->
 
                             <div class="ratings-container">
                                 <div class="ratings">
@@ -74,35 +79,34 @@ product-details
                             </div><!-- End .rating-container -->
 
                             <div class="product-price">
-                                $84.00
+                                ${{$product->selling_price}}
                             </div><!-- End .product-price -->
 
                             <div class="product-content">
-                                <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing. Sed lectus. </p>
+                                <p>
+                                    when you need printing more than one strings where 
+                                    there may be variables,functions... you need to concatenate them
+                                </p>
                             </div><!-- End .product-content -->
 
                             <div class="details-filter-row details-row-size">
                                 <label>Color:</label>
-
-                                <div class="product-nav product-nav-thumbs">
-                                    <a href="#" class="active">
-                                        <img src="assets/images/products/single/1-thumb.jpg" alt="product desc">
-                                    </a>
-                                    <a href="#">
-                                        <img src="assets/images/products/single/2-thumb.jpg" alt="product desc">
-                                    </a>
-                                </div><!-- End .product-nav -->
+                                <div class="select-custom">
+                                    <select name="size" id="size" class="form-control">
+                                        @foreach($color as $color)
+                                        <option value="{{ $color }}">{{ $color }}</option>
+                                        @endforeach
+                                    </select>
+                                </div><!-- End .select-custom -->
                             </div><!-- End .details-filter-row -->
 
                             <div class="details-filter-row details-row-size">
                                 <label for="size">Size:</label>
                                 <div class="select-custom">
                                     <select name="size" id="size" class="form-control">
-                                        <option value="#" selected="selected">Select a size</option>
-                                        <option value="s">Small</option>
-                                        <option value="m">Medium</option>
-                                        <option value="l">Large</option>
-                                        <option value="xl">Extra Large</option>
+                                        @foreach($sizes as $size)
+                                        <option value="{{ $size }}">{{ $size }}</option>
+                                        @endforeach
                                     </select>
                                 </div><!-- End .select-custom -->
 
@@ -292,7 +296,7 @@ product-details
                     <figure class="product-media">
                         <span class="product-label label-new">New</span>
                         <a href="product.html">
-                            <img src="assets/images/products/product-4.jpg" alt="Product image" class="product-image">
+                            <img src="{{asset('assets')}}/images/products/product-4.jpg" alt="Product image" class="product-image">
                         </a>
 
                         <div class="product-action-vertical">
@@ -323,14 +327,14 @@ product-details
 
                         <div class="product-nav product-nav-thumbs">
                             <a href="#" class="active">
-                                <img src="assets/images/products/product-4-thumb.jpg" alt="product desc">
+                                <img src="{{asset('assets')}}/images/products/product-4-thumb.jpg" alt="product desc">
                             </a>
                             <a href="#">
-                                <img src="assets/images/products/product-4-2-thumb.jpg" alt="product desc">
+                                <img src="{{asset('assets')}}/images/products/product-4-2-thumb.jpg" alt="product desc">
                             </a>
 
                             <a href="#">
-                                <img src="assets/images/products/product-4-3-thumb.jpg" alt="product desc">
+                                <img src="{{asset('assets')}}/images/products/product-4-3-thumb.jpg" alt="product desc">
                             </a>
                         </div><!-- End .product-nav -->
                     </div><!-- End .product-body -->
@@ -340,7 +344,7 @@ product-details
                     <figure class="product-media">
                         <span class="product-label label-out">Out of Stock</span>
                         <a href="product.html">
-                            <img src="assets/images/products/product-6.jpg" alt="Product image" class="product-image">
+                            <img src="{{asset('assets')}}/images/products/product-6.jpg" alt="Product image" class="product-image">
                         </a>
 
                         <div class="product-action-vertical">
@@ -375,7 +379,7 @@ product-details
                     <figure class="product-media">
                         <span class="product-label label-top">Top</span>
                         <a href="product.html">
-                            <img src="assets/images/products/product-11.jpg" alt="Product image" class="product-image">
+                            <img src="{{asset('assets')}}/images/products/product-11.jpg" alt="Product image" class="product-image">
                         </a>
 
                         <div class="product-action-vertical">
@@ -406,14 +410,14 @@ product-details
 
                         <div class="product-nav product-nav-thumbs">
                             <a href="#" class="active">
-                                <img src="assets/images/products/product-11-thumb.jpg" alt="product desc">
+                                <img src="{{asset('assets')}}/images/products/product-11-thumb.jpg" alt="product desc">
                             </a>
                             <a href="#">
-                                <img src="assets/images/products/product-11-2-thumb.jpg" alt="product desc">
+                                <img src="{{asset('assets')}}/images/products/product-11-2-thumb.jpg" alt="product desc">
                             </a>
 
                             <a href="#">
-                                <img src="assets/images/products/product-11-3-thumb.jpg" alt="product desc">
+                                <img src="{{asset('assets')}}/images/products/product-11-3-thumb.jpg" alt="product desc">
                             </a>
                         </div><!-- End .product-nav -->
                     </div><!-- End .product-body -->
@@ -422,7 +426,7 @@ product-details
                 <div class="product product-7 text-center">
                     <figure class="product-media">
                         <a href="product.html">
-                            <img src="assets/images/products/product-10.jpg" alt="Product image" class="product-image">
+                            <img src="{{asset('assets')}}/images/products/product-10.jpg" alt="Product image" class="product-image">
                         </a>
 
                         <div class="product-action-vertical">
@@ -456,7 +460,7 @@ product-details
                 <div class="product product-7 text-center">
                     <figure class="product-media">
                         <a href="product.html">
-                            <img src="assets/images/products/product-7.jpg" alt="Product image" class="product-image">
+                            <img src="{{asset('assets')}}/images/products/product-7.jpg" alt="Product image" class="product-image">
                         </a>
 
                         <div class="product-action-vertical">

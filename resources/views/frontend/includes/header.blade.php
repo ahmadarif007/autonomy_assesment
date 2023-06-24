@@ -45,7 +45,7 @@
         </button>
 
         <a href="index.html" class="logo">
-            <img src="assets/images/demos/demo-24/logo.png" alt="Molla Logo" width="110" height="25">
+            <img src="{{asset('assets')}}/images/demos/demo-24/logo.png" alt="Molla Logo" width="110" height="25">
         </a>
     </div><!-- End .header-left -->
 
@@ -56,6 +56,37 @@
                     <a href="index.html" class="sf-with-ul">Home</a>
                 </li>
                 <li>
+                    <a href="#" class="sf-with-ul">Category</a>
+                    <ul>
+                        @php 
+							$category=DB::table('categories')->orderBy('category_name','ASC')->get();
+						@endphp
+						@foreach($category as $row)
+                        @php
+                            $subcategory=DB::table('subcategories')->where('category_id',$row->id)->get();
+                        @endphp
+                        <li>
+                            <a href="{{ route('categorywise.product',$row->id) }}" class="sf-with-ul">{{ $row->category_name }}</a>
+                            <ul>
+                                @foreach($subcategory as $row)
+                                @php
+                                    $childcategory=DB::table('childcategories')->where('subcategory_id',$row->id)->get();
+                                @endphp
+                                <li>
+                                    <a href="{{ route('subcategorywise.product',$row->id) }}">{{ $row->subcategory_name }}</a>
+                                    <ul>
+                                        @foreach($childcategory as $row)
+                                        <li><a href="{{ route('childcategorywise.product',$row->id) }}">{{ $row->childcategory_name }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li>
                     <a href="category.html" class="sf-with-ul">Shop</a>
                 </li>
                 <li>
@@ -63,29 +94,6 @@
                 </li>
                 <li>
                     <a href="#" class="sf-with-ul">Pages</a>
-
-                    <ul>
-                        <li>
-                            <a href="about.html" class="sf-with-ul">About</a>
-
-                            <ul>
-                                <li><a href="about.html">About 01</a></li>
-                                <li><a href="about-2.html">About 02</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="contact.html" class="sf-with-ul">Contact</a>
-
-                            <ul>
-                                <li><a href="contact.html">Contact 01</a></li>
-                                <li><a href="contact-2.html">Contact 02</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="faq.html">FAQs</a></li>
-                        <li><a href="404.html">Error 404</a></li>
-                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                    </ul>
                 </li>
                 <li>
                     <a href="blog.html" class="sf-with-ul">Blog</a>
@@ -93,6 +101,7 @@
                 <li>
                     <a href="elements-list.html" class="sf-with-ul">Elements</a>
                 </li>
+                
             </ul><!-- End .menu -->
         </nav><!-- End .main-nav -->
     </div>
@@ -136,7 +145,7 @@
 
                         <figure class="product-image-container">
                             <a href="product.html" class="product-image">
-                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                <img src="{{asset('assets')}}/images/products/cart/product-1.jpg" alt="product">
                             </a>
                         </figure>
                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
@@ -156,7 +165,7 @@
 
                         <figure class="product-image-container">
                             <a href="product.html" class="product-image">
-                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                <img src="{{asset('assets')}}/images/products/cart/product-2.jpg" alt="product">
                             </a>
                         </figure>
                         <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>

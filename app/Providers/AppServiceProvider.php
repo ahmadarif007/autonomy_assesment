@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use DB;
+use Illuminate\Pagination\Paginator;
+use App\Models;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $products=DB::table('products')->first();
+        view()->share('products',$products);
     }
 }
