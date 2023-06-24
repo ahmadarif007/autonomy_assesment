@@ -47,7 +47,7 @@ Route::get('/childcategory/product/{id}', [ProductController::class, 'Childcateg
 Route::get('/brandwise/product/{id}', [ProductController::class, 'BrandWiseProduct'])->name('brandwise.product');
 
 //__ for product //
-Route::get('/all-products', [ProductController::class, 'allProducts'])->name('products');
+Route::get('/all-products', [ProductController::class, 'allProducts'])->name('all.products');
 Route::get('/product-details/{slug}', [ProductController::class, 'product_details'])->name('product.details');
 
 //__ product filter __//

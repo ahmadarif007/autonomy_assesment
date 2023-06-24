@@ -90,7 +90,7 @@
                     <a href="category.html" class="sf-with-ul">Shop</a>
                 </li>
                 <li>
-                    <a href="product.html" class="sf-with-ul">Product</a>
+                    <a href="{{ route('all.products') }}" class="sf-with-ul">Product</a>
                 </li>
                 <li>
                     <a href="#" class="sf-with-ul">Pages</a>
