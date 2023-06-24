@@ -9,13 +9,9 @@ use DB;
 
 class ProductController extends Controller
 {
-    public function productDetails(){
-        return view('frontend.product.productDetailsContent');
-    }
-
     public function allProducts()
     {
-        $allProducts=Product::paginate(12);
+        $allProducts=Product::paginate(8);
         return view('frontend.product.allProducts', compact('allProducts'));
     }
 
