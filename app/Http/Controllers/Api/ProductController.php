@@ -10,107 +10,92 @@ use Image;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Support\Facades\Validator;
 
 
 class ProductController extends Controller
 {
+    //__all products__//
     public function index()
     {
         $product=DB::table('products')
                     ->leftJoin('categories','products.category_id','categories.id')
                     ->leftJoin('subcategories','products.subcategory_id','subcategories.id')
                     ->leftJoin('childcategories','products.subcategory_id','childcategories.id')
-                    ->select('products.*','categories.category_name','subcategories.subcategory_name','childcategories.childcategory_name');
+                    ->select('products.*','categories.category_name','subcategories.subcategory_name','childcategories.childcategory_name')
+                    ->get();
         return response()->json($product);
     }
 
+    //__store product__//
     public function store(Request $request)
     {
-        $validated = $request->validate([
-           'name' => 'required',
-           'code' => 'required|unique:products|max:55',
-           'subcategory_id' => 'required',
-           'unit' => 'required',
-           'selling_price' => 'required',
-           'color' => 'required',
-           'description' => 'required',
+        $product = $request->all();
+        $validator = Validator::make($product, [
+            'name' => 'required',
+            'code' => 'required|unique:products|max:55',
+            'subcategory_id' => 'required',
+            'unit' => 'required',
+            'selling_price' => 'required',
+            'color' => 'required',
+            'description' => 'required',
         ]);
 
-       //subcategory call for category id
-       $subcategory=DB::table('subcategories')->where('id',$request->subcategory_id)->first();
-       $slug=Str::slug($request->name, '-');
+        $product = Product::create([
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+            'childcategory_id' => $request->childcategory_id,
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'code' => $request->code,
+            'color' => $request->color,
+            'size' => $request->size,
+            'purchase_price' => $request->purchase_price,
+            'selling_price' => $request->selling_price,
+            'stock_quantity' => $request->stock_quantity,
+            'description' => $request->description,
+            'thumbnail' => $request->thumbnail,
+            'status' => $request->status,
+        ]);
 
-       $data=array();
-       $data['name']=$request->name;
-       $data['slug']=Str::slug($request->name, '-');
-       $data['code']=$request->code;
-       $data['category_id']=$subcategory->category_id;
-       $data['subcategory_id']=$request->subcategory_id;
-       $data['childcategory_id']=$request->childcategory_id;
-       $data['purchase_price']=$request->purchase_price;
-       $data['selling_price']=$request->selling_price;
-       $data['stock_quantity']=$request->stock_quantity;
-       $data['color']=$request->color;
-       $data['size']=$request->size;
-       $data['unit']=$request->unit;
-       $data['description']=$request->description;
-       $data['status']=$request->status;
-
-       $product = DB::table('products')->insert($data);
-       return response()->json([
+        return response()->json([
             'success' => true, 
             'message' => 'Product create successfully',
             'product' => $product,
         ]);
     }
 
+    //__product show__//
+    public function show($id){
+        $product = Product::findorfail($id);
+        return response()->json($product);
+    }
     
     //__update product__//
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-           'name' => 'required',
-           'code' => 'required|max:55',
-           'subcategory_id' => 'required',
-           'selling_price' => 'required',
-           'color' => 'required',
-           'unit' => 'required',
-           'description' => 'required',
-       ]);
+        $product = $request->all();
+        $validator = Validator::make($product, [
+            'name' => 'required',
+            'code' => 'required|unique:products|max:55',
+            'subcategory_id' => 'required',
+            'unit' => 'required',
+            'selling_price' => 'required',
+            'color' => 'required',
+            'description' => 'required',
+        ]);
 
-        $subcategory=DB::table('subcategories')->where('id',$request->subcategory_id)->first();
-        $slug=Str::slug($request->name, '-');
-
-        $data=array();
-        $data['name']=$request->name;
-        $data['slug']=Str::slug($request->name, '-');
-        $data['code']=$request->code;
-        $data['category_id']=$subcategory->category_id;
-        $data['subcategory_id']=$request->subcategory_id;
-        $data['childcategory_id']=$request->childcategory_id;
-        $data['purchase_price']=$request->purchase_price;
-        $data['selling_price']=$request->selling_price;
-        $data['stock_quantity']=$request->stock_quantity;
-        $data['color']=$request->color;
-        $data['size']=$request->size;
-        $data['unit']=$request->unit;
-        $data['description']=$request->description;
-        $data['status']=$request->status;
-
-        DB::table('products')->where('id',$request->id)->update($data);
+        $product = Product::findorfail($id);
+        $product->update([$request->all()]);
         return response()->json(['message' => 'Product records updated succesfully'], 200);
     }
 
-    //product delete
+    //__product delete__//
     public function destroy($id)
     {
-        if(Product::where('id', $id)->exists()){
-            $Product = Product::find($id);
-            $Product->delete();
-            return response()->json(['message' => 'Product records deleted succesfully'], 200);
-        }else{
-            return response()->json(['message' => 'Product records not found'], 404);
-        }
+        $Product = Product::find($id);
+        $Product->delete();
+        return response()->json(['message' => 'Product records deleted succesfully'], 200);
     }
 
 }
